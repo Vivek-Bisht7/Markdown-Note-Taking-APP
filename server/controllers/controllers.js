@@ -1,5 +1,5 @@
 const multerController = (req,res,next)=>{
-    console.log(req.file);
+    console.log("File recieved : " , req.file);
     next();
 }
 

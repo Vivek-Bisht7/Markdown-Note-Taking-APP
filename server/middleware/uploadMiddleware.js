@@ -8,9 +8,10 @@ const storage = multer.diskStorage({
   filename: function (req, file, cb) {
     const fileextension = path.extname(file.originalname);
     const uniqueSuffix = '-' + Math.round(Math.random() * 1E4)
-    cb(null, file.fieldname + '-' + uniqueSuffix + fileextension)
+    cb(null,  file.originalname.split('.').slice(0, -1).join('.') + uniqueSuffix + fileextension)
   }
 })
+
 
 const upload = multer({ storage: storage })
 
