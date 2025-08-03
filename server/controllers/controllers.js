@@ -1,6 +1,6 @@
-const multerController = (req,res,next)=>{
+const multerController = (req,res)=>{
     console.log("File recieved : " , req.file);
-    next();
+    return res.send("File received");
 }
 
 module.exports = {multerController};
