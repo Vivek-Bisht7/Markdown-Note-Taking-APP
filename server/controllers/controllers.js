@@ -3,4 +3,9 @@ const multerController = (req,res)=>{
     return res.send("File received");
 }
 
-module.exports = {multerController};
+const formController = (req,res)=>{
+    console.log(req.body.fileName);
+    
+}
+
+module.exports = {multerController,formController};
