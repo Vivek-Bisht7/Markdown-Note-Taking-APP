@@ -9,7 +9,7 @@ const multerController = (req,res)=>{
 
 const formController = async (req,res)=>{
     if (!fs.existsSync(path.join(__dirname, "../public/uploads"))) {
-          await fs.mkdir(path.join(__dirname, "../public/uploads"), (err) => {
+         await fs.mkdir(path.join(__dirname, "../public/uploads"), (err) => {
             if (err) throw err;
           });
         }  
