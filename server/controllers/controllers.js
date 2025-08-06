@@ -1,4 +1,3 @@
-const { log } = require('console');
 const fs = require('fs');
 const path = require('path');
 
@@ -38,4 +37,12 @@ const formController = async (req,res)=>{
     })
 }
 
-module.exports = {multerController,formController};
+const notesController = async (req,res)=>{
+    const location = path.join(__dirname , "../public/uploads");
+
+    await fs.readdir(location , (err,files)=>{
+        res.send(files);
+    })
+}
+
+module.exports = {multerController,formController,notesController};
