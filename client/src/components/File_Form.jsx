@@ -26,13 +26,37 @@ const File_Form = () => {
     }
 
   return (
-    <div className='m-7 flex flex-col bg-black h-100 w-[60vw]'>
-         <form className='m-7 flex flex-col items-center' onSubmit={submitHandler}>
-            <input type="text" name='fileName' className=' bg-white h-10 w-full  ' required
-            placeholder='Enter File Name'/>
-            <textarea name="markdownText" className=' bg-teal-200 h-70 w-full resize-none' required
-            placeholder='Enter File Content'></textarea>
-            <button type='submit' className={` ${buttonColor} h-[6vh] w-[14vw]  text-2xl rounded-sm cursor-pointer m-2`}>{buttonText}</button>
+    <div className='flex flex-col
+                    m-7 bg-black h-[70vh] w-[80vw]
+                    sm:w-[100vw]'>
+
+         <form onSubmit={submitHandler} className='flex flex-col items-center m-5 '>
+
+            <input 
+                type="text" 
+                name='fileName' 
+                className=' bg-white h-[5vh] w-full  ' 
+                required
+                placeholder='Enter File Name'
+            />
+
+            <textarea 
+                name="markdownText" 
+                className=' bg-teal-200 h-[55vh] w-full resize-none' 
+                required
+                placeholder='Enter File Content'>
+            </textarea>
+
+            <button 
+                type='submit' 
+                className={` 
+                    ${buttonColor} 
+                    cursor-pointer
+                    h-[5vh] w-[20vw]  text-2xl rounded-sm  mt-3`}
+            >
+            {buttonText}
+            </button>
+
         </form>
     </div>
   )

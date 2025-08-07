@@ -36,10 +36,22 @@ const File_Upload = () => {
 
   return (
     <div>
-        <form className='flex gap-0.5' onSubmit={formSubmit} encType='multipart/form-data'>
-            <input className='bg-black text-base text-white flex  h-[8vh] w-[20vw]' 
-              type="file" name='markdownfile' accept='.md'/>
-            <button className='bg-black h-[8vh] w-[20vw] text-white text-2xl rounded-sm cursor-pointer' type='submit'>Upload</button>
+        <form className='
+            onSubmit={formSubmit}
+            flex gap-0.5'  
+            encType='multipart/form-data
+        '>
+            <input 
+              className='bg-black text-base text-white flex  h-[6vh] w-[40vw] pt-[1.5vh]' 
+              type="file" 
+              name='markdownfile' 
+              accept='.md'
+            />
+
+            <button 
+              className='bg-black h-[6vh] w-[20vw]  text-2xl rounded-sm text-white cursor-pointer' type='submit'
+            >Upload</button>
+
         </form>
     </div>
   )
