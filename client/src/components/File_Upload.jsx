@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const File_Upload = () => {
 
+  const [buttonText , setButtonText] = useState('Upload');
+  const [buttonColor , setButtonColor] = useState('bg-cyan-500')
   const [uploadStatus,setUploadStatus] = useState(false);
   
   const formSubmit = async (e)=>{
@@ -18,6 +20,9 @@ const File_Upload = () => {
         return;
     }
 
+    setButtonText('Uploading..');
+    setButtonColor('bg-amber-500');
+
     
     try{
       const res = await axios.post('http://localhost:5000/api/upload' , formData , {
@@ -26,6 +31,8 @@ const File_Upload = () => {
         }
       }) ;
       setUploadStatus(true);
+      setButtonColor('bg-green-500');
+      setButtonText('Uploaded');
       console.log('Response:', res.data);
     }
     catch(err){
@@ -52,9 +59,9 @@ const File_Upload = () => {
             />
 
             <button 
-              className='bg-black h-[6vh] w-[20vw]  text-2xl rounded-sm text-white cursor-pointer' type='submit'
+              className={` ${buttonColor} h-[6vh] w-[20vw]  text-2xl rounded-sm  cursor-pointer `} type='submit'
               disabled={uploadStatus}
-            >Upload</button>
+            >{buttonText}</button>
 
         </form>
     </div>
