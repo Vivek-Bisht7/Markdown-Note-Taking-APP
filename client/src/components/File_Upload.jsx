@@ -3,6 +3,8 @@ import axios from 'axios'
 
 const File_Upload = () => {
 
+  const [uploadStatus,setUploadStatus] = useState(false);
+  
   const formSubmit = async (e)=>{
     
     e.preventDefault();
@@ -18,12 +20,12 @@ const File_Upload = () => {
 
     
     try{
-      const res = await axios.post('http://localhost:5000/api/form' , formData , {
+      const res = await axios.post('http://localhost:5000/api/upload' , formData , {
         headers:{
           'Content-Type' : 'multipart/form-data'
         }
       }) ;
-      
+      setUploadStatus(true);
       console.log('Response:', res.data);
     }
     catch(err){
@@ -37,10 +39,11 @@ const File_Upload = () => {
   return (
     <div>
         <form className='
-            onSubmit={formSubmit}
             flex gap-0.5'  
-            encType='multipart/form-data
-        '>
+            encType='multipart/form-data' 
+            onSubmit={formSubmit}
+            method='post'
+        >
             <input 
               className='bg-black text-base text-white flex  h-[6vh] w-[40vw] pt-[1.5vh]' 
               type="file" 
@@ -50,6 +53,7 @@ const File_Upload = () => {
 
             <button 
               className='bg-black h-[6vh] w-[20vw]  text-2xl rounded-sm text-white cursor-pointer' type='submit'
+              disabled={uploadStatus}
             >Upload</button>
 
         </form>

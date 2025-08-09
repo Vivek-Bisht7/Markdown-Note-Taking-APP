@@ -34,6 +34,7 @@ const formController = async (req,res)=>{
     fs.appendFile(filePath,fileData,(err)=>{
         if(err) throw err;
         console.log("File created..");
+        return res.status(200).json({message:"Created"});
     })
 }
 

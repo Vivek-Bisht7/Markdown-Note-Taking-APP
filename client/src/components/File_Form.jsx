@@ -2,21 +2,26 @@ import React, { useState } from 'react'
 import axios from 'axios';
 
 const File_Form = () => {
-    const [buttonColor , setButtonColor] = useState('bg-amber-500');
+    const [buttonColor , setButtonColor] = useState('bg-cyan-500');
     const [buttonText , setButtonText] = useState('Upload');
+    const [uploadStatus , setUploadStatus] = useState(false);
 
     const submitHandler = async (e) => {
         e.preventDefault();
 
         const fileName = e.target.fileName.value;
         const markdownText = e.target.markdownText.value;
+
         
-    
         try{
-            setButtonColor("bg-green-500");
-            setButtonText("Uploaded");
+            setButtonColor("bg-amber-500");
+            setButtonText("Uploading...");
 
             const res = await axios.post("http://localhost:5000/api/form" , {fileName,markdownText});
+
+            setButtonColor("bg-green-500");
+            setButtonText("Uploaded");
+            setUploadStatus(true);
 
         }
         catch(err){
@@ -26,9 +31,9 @@ const File_Form = () => {
     }
 
   return (
-    <div className='flex flex-col
+    <div className='flex flex-col 
                     m-7 bg-black h-[70vh] w-[80vw]
-                    sm:w-[100vw]'>
+                    sm:w-[80%]'>
 
          <form onSubmit={submitHandler} className='flex flex-col items-center m-5 '>
 
@@ -42,7 +47,7 @@ const File_Form = () => {
 
             <textarea 
                 name="markdownText" 
-                className=' bg-teal-200 h-[55vh] w-full resize-none' 
+                className=' bg-teal-200 h-[54vh] w-full resize-none' 
                 required
                 placeholder='Enter File Content'>
             </textarea>
@@ -52,7 +57,9 @@ const File_Form = () => {
                 className={` 
                     ${buttonColor} 
                     cursor-pointer
-                    h-[5vh] w-[20vw]  text-2xl rounded-sm  mt-3`}
+                    h-[5vh] w-[20vw]  text-2xl rounded-sm  mt-3 sm:mt-2
+                    `}
+                disabled={uploadStatus}
             >
             {buttonText}
             </button>
