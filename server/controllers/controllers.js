@@ -46,4 +46,23 @@ const notesController = async (req,res)=>{
     })
 }
 
-module.exports = {multerController,formController,notesController};
+const getFileData = async (req,res)=>{
+    const fileName = req.params.fileName;
+    
+    const filePath = path.join(__dirname , `../public/uploads/${fileName}`);
+
+    fs.access(filePath , fs.constants.F_OK , (err)=>{
+        if(err){
+            console.log(err);    
+        }
+        else{
+            fs.readFile(filePath , 'utf-8' , (err,data)=>{
+                if(err) throw err;
+                else res.send({fileData : data});
+            })
+        }
+    })
+    
+}
+
+module.exports = {multerController,formController,notesController,getFileData};
