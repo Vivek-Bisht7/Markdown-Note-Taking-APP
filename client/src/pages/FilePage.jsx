@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import {useParams} from 'react-router-dom' 
 import axios from 'axios';
+import {Link} from 'react-router-dom'
 
 const FilePage = () => {
   const {fileName} = useParams();
@@ -22,7 +23,14 @@ const FilePage = () => {
 
   return (
     <div className='bg-black min-h-screen'>
-      <h1 className='text-amber-300 text-4xl mb-4'>{fileName}</h1>
+      <nav className='flex justify-between'>
+        <h1 className='text-amber-300 text-4xl mb-4'>{fileName}</h1>
+        <div>
+          <Link  to={`http://localhost:5173/files/HTML/${fileName}`} className='bg-white text-black text-1xl m-2'>Render HTML</Link>
+          <button className='bg-white text-black text-1xl m-2'>Check grammer</button>
+          <button className='bg-white text-black text-1xl m-2'>Get summary</button>
+        </div>
+      </nav>
       <pre className='text-white'>{data}</pre>
     </div>
   )

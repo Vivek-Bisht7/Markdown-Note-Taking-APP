@@ -1,5 +1,7 @@
 const fs = require('fs');
 const path = require('path');
+const markdownit = require('markdown-it');
+const { log } = require('console');
 
 const multerController = (req,res)=>{
     console.log("File recieved : " , req.file);
@@ -51,18 +53,30 @@ const getFileData = async (req,res)=>{
     
     const filePath = path.join(__dirname , `../public/uploads/${fileName}`);
 
-    fs.access(filePath , fs.constants.F_OK , (err)=>{
-        if(err){
-            console.log(err);    
-        }
-        else{
             fs.readFile(filePath , 'utf-8' , (err,data)=>{
                 if(err) throw err;
                 else res.send({fileData : data});
             })
+    }
+
+
+const getHTML = (req,res) => {
+    const md = markdownit();
+
+    const fileName = req.params.fileName;
+
+    const filePath = path.join(__dirname , `../public/uploads/${fileName}`);
+
+    fs.readFile(filePath , 'utf-8' , (err,data)=>{
+        if(err){
+            throw err;
+        }
+        else{
+            const result = md.render(data);
+            res.send(result);
         }
     })
-    
+
 }
 
-module.exports = {multerController,formController,notesController,getFileData};
+module.exports = {multerController,formController,notesController,getFileData,getHTML};
