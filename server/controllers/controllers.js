@@ -1,7 +1,9 @@
 const fs = require('fs');
 const path = require('path');
 const markdownit = require('markdown-it');
-const { log } = require('console');
+const spell = require('spell-checker-js');
+const constants = require('constants');
+
 
 const multerController = (req,res)=>{
     console.log("File recieved : " , req.file);
@@ -50,14 +52,22 @@ const notesController = async (req,res)=>{
 
 const getFileData = async (req,res)=>{
     const fileName = req.params.fileName;
-    
+
     const filePath = path.join(__dirname , `../public/uploads/${fileName}`);
 
+    fs.access(filePath, constants.F_OK, (err) => {
+
+        if(err){
+            console.log("File does not exists");
+        }
+        else{
             fs.readFile(filePath , 'utf-8' , (err,data)=>{
-                if(err) throw err;
+                if(err) throw err.message;
                 else res.send({fileData : data});
             })
-    }
+        }
+    });
+}
 
 
 const getHTML = (req,res) => {
@@ -67,16 +77,50 @@ const getHTML = (req,res) => {
 
     const filePath = path.join(__dirname , `../public/uploads/${fileName}`);
 
-    fs.readFile(filePath , 'utf-8' , (err,data)=>{
+    fs.access(filePath, constants.F_OK, (err) => {
+
         if(err){
-            throw err;
+            console.log("File does not exists");
         }
         else{
-            const result = md.render(data);
-            res.send(result);
+            fs.readFile(filePath , 'utf-8' , (err,data)=>{
+                if(err){
+                throw err;
+            }
+            else{
+                const result = md.render(data);
+                res.send(result);
+            }
+        })
         }
-    })
+    });
 
 }
 
-module.exports = {multerController,formController,notesController,getFileData,getHTML};
+const  getGrammarErrors = (req,res) => {
+    const fileName = req.params.fileName;
+    const filePath = path.join(__dirname , `../public/uploads/${fileName}`)
+
+    fs.access(filePath, constants.F_OK, (err) => {
+
+        if(err){
+            console.log("File does not exists");
+        }
+        else{
+            fs.readFile(filePath , 'utf-8' , (err,data)=>{
+                if(err){ 
+                console.log(err);
+                throw err;
+            }
+            else{
+                spell.load('en');
+                const check = spell.check(data);
+            res.send(check);
+        }
+    })
+        }
+    });
+
+}
+
+module.exports = {multerController,formController,notesController,getFileData,getHTML,getGrammarErrors};

@@ -18,15 +18,17 @@ const showPage = () => {
     
 
   return (
-    <div className='bg-emerald-300 min-h-screen w-full' >
-        <h1 className="text-5xl font-mono justify-center flex">Notes</h1>
+    <div className='bg-neutral-950  min-h-screen max-w-full' >
+        <h1 className="text-7xl text-white font-mono justify-center flex">Notes</h1>
 
         {data?data.map((data,key)=>(
           <div 
             className='max-w-full 
                         h-[8vh] text-xl 
-                        bg-emerald-200 
-                        m-1' key={key}>
+                        pl-3
+                        bg-neutral-800 
+                        m-1 text-amber-100' 
+                        key={key}>
                         <Link to={`http://localhost:5173/files/${data}`}>{data}</Link>
                         </div>
         ))

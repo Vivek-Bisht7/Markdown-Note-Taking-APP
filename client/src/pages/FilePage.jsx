@@ -27,8 +27,7 @@ const FilePage = () => {
         <h1 className='text-amber-300 text-4xl mb-4'>{fileName}</h1>
         <div>
           <Link  to={`http://localhost:5173/files/HTML/${fileName}`} className='bg-white text-black text-1xl m-2'>Render HTML</Link>
-          <button className='bg-white text-black text-1xl m-2'>Check grammer</button>
-          <button className='bg-white text-black text-1xl m-2'>Get summary</button>
+          <Link  to={`http://localhost:5173/files/grammar/${fileName}`}  className='bg-white text-black text-1xl m-2'>Check Grammar</Link>
         </div>
       </nav>
       <pre className='text-white'>{data}</pre>
